@@ -1,4 +1,5 @@
 const fs = require("fs-extra");
+const path = require("path");
 
 class AssetsManager {
   constructor(path) {

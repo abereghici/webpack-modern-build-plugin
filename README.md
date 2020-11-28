@@ -93,4 +93,8 @@ This will generate a file `dist/index.html` containing the following
 </html>
 ```
 
+<h2 align="center">Example</h2>
+Here you can find the implementation of differential serving using this plugin
+https://github.com/abereghici/diff_serving
+
 The script in the middle between type="module" and nomodule is for Safari 10.1. This version supports modules, but does not support the `nomodule` attribute - it will load "script nomodule" anyway. This snippet solve this problem, but only for script tags that load external code.

@@ -1,6 +1,6 @@
 {
   "name": "webpack-modern-build-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack plugin that integrates module / nomodule bundles in the html",
   "main": "src/index.js",
   "author": "Alexandru Bereghici <alexandru.brg@gmail.com>",

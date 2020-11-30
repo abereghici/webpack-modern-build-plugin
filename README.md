@@ -26,30 +26,34 @@ Example of `webpack` config:
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackModernBuildPlugin = require("webpack-modern-build-plugin");
 
-module.exports = {
-  entry: "index.js",
-  output: {
-    path: __dirname + "/dist",
-    filename: "bundle.js",
+module.exports = [
+  {
+    entry: "index.js",
+    output: {
+      path: __dirname + "/dist",
+      filename: "bundle.js",
+    },
+    plugins: [
+      new HtmlWebpackPlugin(),
+      new WebpackModernBuildPlugin({
+        mode: "modern",
+      }),
+    ]
   },
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new WebpackModernBuildPlugin({
-      mode: "modern",
-    }),
-  ],
-  entry: "index.js",
-  output: {
-    path: __dirname + "/dist",
-    filename: "es5.bundle.js",
-  },
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new WebpackModernBuildPlugin({
-      mode: "legacy",
-    }),
-  ],
-};
+  {
+    entry: "index.js",
+    output: {
+      path: __dirname + "/dist",
+      filename: "es5.bundle.js",
+    },
+    plugins: [
+      new HtmlWebpackPlugin(),
+      new WebpackModernBuildPlugin({
+        mode: "legacy",
+      }),
+    ],
+  }
+];
 ```
 
 This will generate a file `dist/index.html` containing the following

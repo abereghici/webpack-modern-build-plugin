@@ -56,18 +56,14 @@ class ModernBuildPlugin {
 
     const currentAssets =
       plugin.options.inject === "head" ? headTags : bodyTags;
+    const scripts = currentAssets.filter((a) => a.tagName === "script" && a.attributes);
+
+    this.setAttributesToScripts(scripts);
 
     if (assetsManager.hasAssets()) {
-      this.setAttributesToScripts(currentAssets);
       this.injectAssets(assetsManager.get(), currentAssets);
-
       assetsManager.remove();
     } else {
-      const scripts = currentAssets.filter(
-        (a) => a.tagName === "script" && a.attributes
-      );
-      this.setAttributesToScripts(scripts);
-
       assetsManager.set(scripts);
     }
 

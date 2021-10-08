@@ -15,45 +15,48 @@
 
 <h2 align="center">Usage</h2>
 
-The plugin generates module/nomodule scripts and relies on [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin). This plugin expects to return two configurations in your webpack - legacy and modern.
-One of those values should be passed as mode option to the plugin in both configurations.
+The plugin generates module/nomodule scripts and relies on
+[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin). This
+plugin expects to return two configurations in your webpack - legacy and modern.
+One of those values should be passed as mode option to the plugin in both
+configurations.
 
 Example of `webpack` config:
 
 **webpack.config.js**
 
 ```js
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackModernBuildPlugin = require("webpack-modern-build-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackModernBuildPlugin = require('webpack-modern-build-plugin')
 
 module.exports = [
   {
-    entry: "index.js",
+    entry: 'index.js',
     output: {
-      path: __dirname + "/dist",
-      filename: "bundle.js",
+      path: __dirname + '/dist',
+      filename: 'bundle.js',
     },
     plugins: [
       new HtmlWebpackPlugin(),
       new WebpackModernBuildPlugin({
-        mode: "modern",
-      }),
-    ]
-  },
-  {
-    entry: "index.js",
-    output: {
-      path: __dirname + "/dist",
-      filename: "es5.bundle.js",
-    },
-    plugins: [
-      new HtmlWebpackPlugin(),
-      new WebpackModernBuildPlugin({
-        mode: "legacy",
+        mode: 'modern',
       }),
     ],
-  }
-];
+  },
+  {
+    entry: 'index.js',
+    output: {
+      path: __dirname + '/dist',
+      filename: 'es5.bundle.js',
+    },
+    plugins: [
+      new HtmlWebpackPlugin(),
+      new WebpackModernBuildPlugin({
+        mode: 'legacy',
+      }),
+    ],
+  },
+]
 ```
 
 This will generate a file `dist/index.html` containing the following
@@ -68,29 +71,29 @@ This will generate a file `dist/index.html` containing the following
   <body>
     <script src="bundle.js" type="module" crossorigin="anonymous"></script>
     <script>
-      (function () {
-        var d = document;
-        var c = d.createElement("script");
-        if (!("noModule" in c) && "onbeforeload" in c) {
-          var s = !1;
+      ;(function () {
+        var d = document
+        var c = d.createElement('script')
+        if (!('noModule' in c) && 'onbeforeload' in c) {
+          var s = !1
           d.addEventListener(
-            "beforeload",
+            'beforeload',
             function (e) {
               if (e.target === c) {
-                s = !0;
-              } else if (!e.target.hasAttribute("nomodule") || !s) {
-                return;
+                s = !0
+              } else if (!e.target.hasAttribute('nomodule') || !s) {
+                return
               }
-              e.preventDefault();
+              e.preventDefault()
             },
-            !0
-          );
-          c.type = "module";
-          c.src = ".";
-          d.head.appendChild(c);
-          c.remove();
+            !0,
+          )
+          c.type = 'module'
+          c.src = '.'
+          d.head.appendChild(c)
+          c.remove()
         }
-      })();
+      })()
     </script>
     <script src="es5.bundle.js" nomodule></script>
   </body>
@@ -101,4 +104,7 @@ This will generate a file `dist/index.html` containing the following
 Here you can find the implementation of differential serving using this plugin
 https://github.com/abereghici/diff_serving
 
-The script in the middle between type="module" and nomodule is for Safari 10.1. This version supports modules, but does not support the `nomodule` attribute - it will load "script nomodule" anyway. This snippet solve this problem, but only for script tags that load external code.
+The script in the middle between type="module" and nomodule is for Safari 10.1.
+This version supports modules, but does not support the `nomodule` attribute -
+it will load "script nomodule" anyway. This snippet solve this problem, but only
+for script tags that load external code.
